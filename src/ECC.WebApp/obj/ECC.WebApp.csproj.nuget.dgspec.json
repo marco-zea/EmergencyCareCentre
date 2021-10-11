@@ -4,14 +4,14 @@
     "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj": {
+    "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Data\\ECC.Data.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj",
-        "projectName": "ECC.WebApp",
-        "projectPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Data\\ECC.Data.csproj",
+        "projectName": "ECC.Data",
+        "projectPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Data\\ECC.Data.csproj",
         "packagesPath": "C:\\Users\\MZea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\obj\\",
+        "outputPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Data\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\MZea\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -41,6 +41,72 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj",
+        "projectName": "ECC.WebApp",
+        "projectPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj",
+        "packagesPath": "C:\\Users\\MZea\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\MZea\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Compassion\\packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/CompassionAustralia/_packaging/CompassionAustralia/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Data\\ECC.Data.csproj": {
+                "projectPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Data\\ECC.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

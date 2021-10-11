@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ECC.WebApp
+namespace WebApp
 {
     public class Program
     {

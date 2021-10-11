@@ -22,8 +22,8 @@ namespace ECC.WebApi
             context.Beds.Add(new Bed {State = "Free" });
             context.Beds.Add(new Bed {State = "In use" });
             context.Beds.Add(new Bed {State = "In use" });
-            context.Beds.Add(new Bed {State = "In use" });
-            context.Beds.Add(new Bed {State = "In use" });
+            context.Beds.Add(new Bed {State = "Free" });
+            context.Beds.Add(new Bed {State = "Free" });
 
             context.Patients.Add(new Patient { Id = "0083524", FirstName = "John", LastName = "Doe", DateOfBirth = new DateTime(1980, 01, 01) });
             context.Patients.Add(new Patient { Id = "0083525", FirstName = "Lorna", LastName = "Smith", DateOfBirth = new DateTime(1995, 03, 15) });

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "epfWyP7Jwix+dR74h30fNPEB5EftBl6LL5T+VrbDox6ahUTvpqjvHM37BXFC+wicTyAnbI8MwKu1VTWZVb89mA==",
+  "dgSpecHash": "8PW+uag+D+e7Jl42ZwOPbCKdYOUo7LnwzGntQw4lTe13LOMK7eyjG4ehifpUWHwI39bgXQh/qFjSJCYJ8Q6nzw==",
   "success": true,
   "projectFilePath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.WebApp\\ECC.WebApp.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\MZea\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

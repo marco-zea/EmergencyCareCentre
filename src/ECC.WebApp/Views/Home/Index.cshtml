@@ -1,0 +1,72 @@
+﻿@model WebApp.Models.HomeViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Emergency Care Centre App</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <td>
+                    Bed
+                </td>
+                <td>
+                    Status
+                </td>
+                <td>
+                    Patient
+                </td>
+                <td>
+                    DOB
+                </td>
+                <td>
+                    Presenting Issue
+                </td>
+                <td>
+                    Last comment
+                </td>
+                <td>
+                    Last update
+                </td>
+                <td>
+                    Nurse
+                </td>
+                <td>
+                    Action
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Beds)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.State)
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        @if (item.State == "Free")
+                        {
+                            <a asp-action="Admit" asp-route-id="@item.Id">Admit</a>
+                        }
+                        else
+                        {
+                            <a asp-action="Comment" asp-route-id="@item.Id">Add comment</a>
+                            <br>
+                            <a asp-action="Discharge" asp-route-id="@item.Id">Discharge</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
