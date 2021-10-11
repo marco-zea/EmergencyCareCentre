@@ -13,6 +13,6 @@ namespace ECC.Data
         public string Body { get; set; }
         [StringLength(100)]
         public string Staff { get; set; }
-        public DateTime LastUpated { get; set; }
+        public DateTime LastUpdated { get; set; }
     }
 }
