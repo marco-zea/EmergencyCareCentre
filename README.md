@@ -18,13 +18,14 @@
   - Database desing: I was struggling if using relational or document structure.
   - Security: Authentication and Authorization.
   - DataTransit issues: using polly to handle transient issue.
-  - Handling errors: web api responses and web app behavior.
+  - Handling errors: web api responses and web app behavior.  
   
 #TODO
 - Connecting webapp controller/actions and service to web api.
 - CSS give a better look and manage modern UI concepts.
 - Unit and Integration tests.
 - Build Forms to Admit, add Comment and Discharge.
+- Patient Details view.
 
 Thanks for the opportunity and your time in allowing me applying for this role.
 
