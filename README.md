@@ -23,5 +23,6 @@
 #TODO
 - Connecting webapp controller/actions and service to web api.
 - CSS give a better look and manage modern UI concepts.
+- Unit and Integration tests.
 
 Thanks for the opportunity and your time in allowing me applying for this role.
