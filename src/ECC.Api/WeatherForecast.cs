@@ -1,6 +1,6 @@
 using System;
 
-namespace EmergencyCareCentre
+namespace ECC.Web.Api
 {
     public class WeatherForecast
     {

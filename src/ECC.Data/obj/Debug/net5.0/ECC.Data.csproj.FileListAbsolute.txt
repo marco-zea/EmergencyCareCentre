@@ -1,0 +1,12 @@
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\bin\Debug\net5.0\ECC.Data.deps.json
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\bin\Debug\net5.0\ECC.Data.dll
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\bin\Debug\net5.0\ref\ECC.Data.dll
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\bin\Debug\net5.0\ECC.Data.pdb
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.AssemblyInfoInputs.cache
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.AssemblyInfo.cs
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.csproj.CoreCompileInputs.cache
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.dll
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ref\ECC.Data.dll
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.pdb
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.csproj.AssemblyReference.cache

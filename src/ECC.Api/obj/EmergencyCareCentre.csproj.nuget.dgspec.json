@@ -1,29 +1,34 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Mater\\EmergencyCareCentre\\EmergencyCareCentre.csproj": {}
+    "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Api\\EmergencyCareCentre.csproj": {}
   },
   "projects": {
-    "D:\\Mater\\EmergencyCareCentre\\EmergencyCareCentre.csproj": {
+    "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Api\\EmergencyCareCentre.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Mater\\EmergencyCareCentre\\EmergencyCareCentre.csproj",
-        "projectName": "EmergencyCareCentre",
-        "projectPath": "D:\\Mater\\EmergencyCareCentre\\EmergencyCareCentre.csproj",
-        "packagesPath": "C:\\Users\\marco\\.nuget\\packages\\",
-        "outputPath": "D:\\Mater\\EmergencyCareCentre\\obj\\",
+        "projectUniqueName": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Api\\EmergencyCareCentre.csproj",
+        "projectName": "ECC.WebApi",
+        "projectPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Api\\EmergencyCareCentre.csproj",
+        "packagesPath": "C:\\Users\\MZea\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MZea\\Documents\\GitHub\\EmergencyCareCentre\\src\\ECC.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\marco\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\MZea\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {}
+          "C:\\Compassion\\packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/CompassionAustralia/_packaging/CompassionAustralia/nuget/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -35,6 +40,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -45,6 +51,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.18, 3.1.18]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -53,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

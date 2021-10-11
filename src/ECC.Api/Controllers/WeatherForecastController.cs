@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ECC.Web.Api;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace EmergencyCareCentre.Controllers
+namespace ECC.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
