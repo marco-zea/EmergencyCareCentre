@@ -4,6 +4,7 @@ using ECC.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace ECC.WebApi.Controllers
 {
@@ -41,8 +42,9 @@ namespace ECC.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Comment>> Post(Comment comment)
+        public async Task<ActionResult<Comment>> Post([FromBody]Comment comment)
         {
+            _logger.LogInformation(JsonConvert.SerializeObject(comment));
             _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
 

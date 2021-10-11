@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using WebApp.Models;
 
 namespace WebApp.Controllers
-{
+{   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -48,13 +48,11 @@ namespace WebApp.Controllers
             return View(viewModel);
         }
 
-        [HttpGet]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Admit(string id)
-        {
-            var viewModel = new HomeViewModel();
+        [HttpGet()]        
+        public async Task<IActionResult> Admit(int? id)
+        {            
             var currentDateTime = DateTime.UtcNow;
-            var payload = "{\"BedId\":" + id + ", \"PatientId\": \"0083524\", \"Body\": \"Test\", \"Staff\" : \"Mary P.\", \"LastUpdated\":" + currentDateTime.ToString() + "}";
+            var payload = "{\"BedId\":" + id + ", \"PatientId\": \"0083524\", \"Body\": \"Nausea, dizziness\", \"Staff\" : \"Mary P.\", \"LastUpdated\":" + currentDateTime.ToString() + "}";
 
             var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/comments")
             {
@@ -71,10 +69,10 @@ namespace WebApp.Controllers
             }
             else
             {
-                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }            
         }
-
+        
         public IActionResult Privacy()
         {
             return View();
