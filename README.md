@@ -15,10 +15,10 @@
 #Assumptions
 - As expected 4 hours won't be enough to get the right solution running.
 - As we need to think about:
-  Database desing: I was struggling if using relational or document structure.
-  Security: Authentication and Authorization.
-  DataTransit issues: using polly to handle transient issue.
-  Handling errors: web api responses and web app behavior.
+  - Database desing: I was struggling if using relational or document structure.
+  - Security: Authentication and Authorization.
+  - DataTransit issues: using polly to handle transient issue.
+  - Handling errors: web api responses and web app behavior.
   
 #TODO
 - Connecting webapp controller/actions and service to web api.
