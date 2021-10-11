@@ -41,7 +41,7 @@ namespace ECC.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Patient>> Post(Patient patient)
+        public async Task<ActionResult<Patient>> Post([FromBody]Patient patient)
         {
             _context.Patients.Add(patient);
             await _context.SaveChangesAsync();

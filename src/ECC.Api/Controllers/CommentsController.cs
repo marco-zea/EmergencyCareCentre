@@ -45,7 +45,7 @@ namespace ECC.WebApi.Controllers
         public async Task<ActionResult<Comment>> Post([FromBody]Comment comment)
         {
             _logger.LogInformation(JsonConvert.SerializeObject(comment));
-            _context.Comments.Add(comment);
+            _context.Comments.Update(comment);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("Get", new { id = comment.Id }, comment);

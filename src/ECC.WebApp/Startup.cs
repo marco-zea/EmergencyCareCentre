@@ -1,3 +1,4 @@
+using ECC.WebApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -21,6 +22,7 @@ namespace WebApp
         {
             services.AddHttpClient();
             services.AddControllersWithViews();
+            services.AddTransient<EmergencyCareService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

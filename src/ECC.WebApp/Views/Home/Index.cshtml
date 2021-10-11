@@ -1,5 +1,6 @@
-﻿@model WebApp.Models.HomeViewModel
-
+﻿@using ECC.WebApp.Services
+@model WebApp.Models.HomeViewModel
+@inject EmergencyCareService Service
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -69,4 +70,9 @@
             }
         </tbody>
     </table>
+    <div>
+        <span>Beds in use: @Service.GetUsedBeds()</span>
+        <span>Beds free: @Service.GetFreeBeds()</span>
+        <span>Total patients admitted today: @Service.GetTotalAdmittedToday()</span>
+    </div>
 </div>
