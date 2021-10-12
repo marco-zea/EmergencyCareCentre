@@ -8,12 +8,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using WebApp.Models;
 
 namespace WebApp.Controllers
-{   
+{
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -50,21 +49,24 @@ namespace WebApp.Controllers
 
         [HttpGet()]        
         public async Task<IActionResult> Admit(int? id)
-        {            
-            var currentDateTime = DateTime.UtcNow;
-            
-            var payload = "{\"Bed\": {\"Id\":" + id + "}, \"Patient\": {\"Id\": \"0083527\"}, \"Body\": \"Admission state\", \"Staff\" : \"Mary P.\", \"LastUpdated\":" + currentDateTime.ToString() + "}";
-
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/comments")
+        {                        
+            var comment = new Comment
             {
-                Content = new StringContent(payload, Encoding.UTF8, "application/json")
+                Bed = new Bed { Id = (int)id, State = "In use" },
+                Patient = new Patient { Id = "0083527", FirstName = "Fred", LastName = "Smith", DateOfBirth = new DateTime(1952, 10, 21) },
+                Body = "Admission reason",
+                Staff = "Mary P.",
+                LastUpdated = DateTime.UtcNow                
             };
+            
+            var payload =  JsonConvert.SerializeObject(comment);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
             var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
+            var response = await client.PostAsync("https://localhost:5001/comments", content);
 
             if (response.IsSuccessStatusCode)
-            {
-                //var content = await response.Content.ReadAsStringAsync();                
+            {                           
                 return RedirectToAction("Index");
             }
             else
@@ -77,50 +79,57 @@ namespace WebApp.Controllers
         [HttpGet()]
         public async Task<IActionResult> Comment(int? id)
         {
-            var currentDateTime = DateTime.UtcNow;
-
-            var payload = "{\"Bed\": {\"Id\":" + id + "}, \"Patient\": {\"Id\": \"0083527\"}, \"Body\": \"Added Comment\", \"Staff\" : \"Mary P.\", \"LastUpdated\":" + currentDateTime.ToString() + "}";
-
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/comments")
+            var comment = new Comment
             {
-                Content = new StringContent(payload, Encoding.UTF8, "application/json")
+                Bed = new Bed { Id = (int)id, State = "In use" },
+                Patient = new Patient { Id = "0083527", FirstName = "Fred", LastName = "Smith", DateOfBirth = new DateTime(1952, 10, 21) },
+                Body = "Adding a comment",
+                Staff = "Mary P.",
+                LastUpdated = DateTime.UtcNow
             };
+
+            var payload = JsonConvert.SerializeObject(comment);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
             var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
+            var response = await client.PostAsync("https://localhost:5001/comments", content);
 
             if (response.IsSuccessStatusCode)
             {
-                //var content = await response.Content.ReadAsStringAsync();               
                 return RedirectToAction("Index");
             }
             else
             {
-                return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
+
         }
 
         [HttpGet()]
         public async Task<IActionResult> Discharge(int? id)
         {
-            var currentDateTime = DateTime.UtcNow;
-
-            var payload = "{\"Bed\": {\"Id\":" + id + "}, \"Patient\": {\"Id\": \"0083527\"}, \"Body\": \"Comment\", \"Staff\" : \"Mary P.\", \"LastUpdated\":" + currentDateTime.ToString() + "}";
-
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://localhost:5001/comments")
+            var comment = new Comment
             {
-                Content = new StringContent(payload, Encoding.UTF8, "application/json")
+                Bed = new Bed { Id = (int)id, State = "Free" },
+                Patient = new Patient { Id = "0083527", FirstName = "Fred", LastName = "Smith", DateOfBirth = new DateTime(1952, 10, 21) },
+                Body = "Discharge",
+                Staff = "Mary P.",
+                LastUpdated = DateTime.UtcNow
             };
+
+            var payload = JsonConvert.SerializeObject(comment);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+
             var client = _clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
+            var response = await client.PostAsync("https://localhost:5001/comments", content);
 
             if (response.IsSuccessStatusCode)
             {
-                //var content = await response.Content.ReadAsStringAsync();                
                 return RedirectToAction("Index");
             }
             else
             {
-                return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
         }
 
