@@ -12,7 +12,7 @@
 4. Build and run WebApp.
 5. You can use postman to test webapi endpoints.
 
-#Assumptions
+#Things to know
 - As expected 4 hours won't be enough to get the right solution running.
 - As I need to think about if I required adding things for:
   - Database desing: I was struggling if using relational or document structure.
