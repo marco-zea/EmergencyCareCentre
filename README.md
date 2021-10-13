@@ -20,15 +20,20 @@
   - DataTransit issues: using polly to handle transient issue.
   - Handling errors: web api responses and web app behaviour.  
 - No creating form but sending same data object to admit, comment and discharge to see the behaviour.
-- Using bootstrap table class
+- Using bootstrap table class.
+- Click on patient's name to see details.
+- Not using service at this moment for statistics.
+
+#Assumptions
+- Not thinking in performance.
+- Faking posting data to admit, add comment and discharge.
+- Separation to other services (interfaces) not included at this stage.
   
-#TODO
-- Connecting webapp service to web api for statistics.
+#TODO - no included
 - Unit and Integration tests.
-- Patient Details view.
 
 Thanks for the opportunity and your time in allowing me applying for this role.
 
-NOT COMPLETED. SOME UPDATES.
+FUNCTIONAL.
 
 
