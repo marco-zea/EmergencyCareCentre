@@ -58,7 +58,7 @@
                                 @Html.DisplayFor(modelItem => item.PatientName)
                             </a>
                         }
-                        </td>
+                    </td>
                     <td>
                         @if (item.State == "In use")
                         {
@@ -105,9 +105,11 @@
             }
         </tbody>
     </table>
-    <div>
-        <span>Beds in use: @Service.GetUsedBeds()</span>
-        <span>Beds free: @Service.GetFreeBeds()</span>
-        <span>Total patients admitted today: @Service.GetTotalAdmittedToday()</span>
-    </div>
+</div>
+<div>
+    <statistics class="text-left">
+        <span>Beds in use: @Model.UsedBeds</span><br />
+        <span>Beds free: @Model.FreeBeds</span><br />
+        <span>Total patients admitted today: @Model.TotalAdmissionsToday</span>
+    </statistics>
 </div>

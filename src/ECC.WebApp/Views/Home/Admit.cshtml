@@ -1,0 +1,60 @@
+﻿@model WebApp.Models.PatientViewModel
+@{
+    ViewData["Title"] = "Admission";
+}
+
+<div class="text-justify">
+    <h1 class="display-4">@ViewData["Title"]</h1>
+    
+    <patient>
+        Name: @Model.Patient.FirstName @Model.Patient.LastName<br />
+        URN: @Model.Patient.Id<br />
+        Date of birth: @Model.Patient.DateOfBirth.ToString("dd-MM-yyyy")<br />
+    </patient>
+    <br />
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    Bed
+                </td>
+                <td>
+                    Date
+                </td>
+                <td>
+                    Time
+                </td>
+                <td>
+                    Nurse
+                </td>
+                <td>
+                    Comment
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Comments)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Bed.Id)
+                    </td>
+                    <td>
+                        @item.LastUpdated.ToString("dd-MM-yyyy")
+                    </td>
+                    <td>
+                        @item.LastUpdated.ToString("hh:mm")
+                    </td>
+                    <td>
+                        @item.Staff
+                    </td>
+                    <td>
+                        @item.Body
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <a asp-action="Index" asp-controller="Home">Go back to dashboard</a>
+</div>

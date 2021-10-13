@@ -83,3 +83,4 @@ C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.WebApp\obj\Debug\net5
 C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.WebApp\obj\Debug\net5.0\ECC.WebApp.genruntimeconfig.cache
 C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.WebApp\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.WebApp\obj\Debug\net5.0\Razor\Views\Home\Patient.cshtml.g.cs
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.WebApp\obj\Debug\net5.0\Razor\Views\Home\Admit.cshtml.g.cs

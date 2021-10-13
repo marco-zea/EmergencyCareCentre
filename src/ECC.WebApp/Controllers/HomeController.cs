@@ -60,7 +60,10 @@ namespace WebApp.Controllers
 
             var viewModel = new HomeViewModel
             {
-                BedDetails = new List<BedDetails>()
+                BedDetails = new List<BedDetails>(),
+                UsedBeds = beds.Count(b => b.State == "In use"),
+                FreeBeds = beds.Count(b => b.State == "Free"),
+                TotalAdmissionsToday = comments.Count(c => c.Body == "Admission reason" && c.LastUpdated.Date == DateTime.Today),
             };
 
             foreach (var bed in beds)

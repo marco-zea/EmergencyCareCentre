@@ -1,10 +1,13 @@
-using System;
 using System.Collections.Generic;
 
 namespace WebApp.Models
 {
     public class HomeViewModel
     {
+        public int UsedBeds { get; set; }
+        public int FreeBeds { get; set; }
+        public int TotalAdmissionsToday { get; set; }
+
         public List<BedDetails> BedDetails { get; set; }        
     }
 

@@ -13,17 +13,6 @@ namespace ECC.WebApp.Services
             _clientFactory = clientFactory;
         }
 
-        public Comment InitialComment(int bedId, string patientId )
-        {
-            //TODO: call web api
-            return new Comment { Bed = { Id = bedId }, Patient = { Id = patientId }, Body = "Admission state", LastUpdated = DateTime.UtcNow };
-        }
-        public Comment LastComment(int bedId, string patientId)
-        {
-            //TODO: call web api
-            return new Comment { Bed = { Id = bedId }, Patient = { Id = patientId }, Body = "Added Comment", LastUpdated = DateTime.UtcNow };
-        }
-
         public int GetUsedBeds()
         {
             //TODO: call web api
