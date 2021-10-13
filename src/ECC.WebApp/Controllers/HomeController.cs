@@ -175,9 +175,47 @@ namespace WebApp.Controllers
             }
         }
 
-        public IActionResult Privacy()
+        [HttpGet()]
+        public async Task<IActionResult> Patient(string id)
         {
-            return View();
+            var client = _clientFactory.CreateClient();
+            var patient = new Patient();
+            var comments = new List<Comment>();
+
+            //Beds
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/patients/" + id);
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                patient = JsonConvert.DeserializeObject<Patient>(content);
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+            //Comments
+            request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/comments");
+            response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                comments = JsonConvert.DeserializeObject<IList<Comment>>(content).ToList();
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+            var patientComments = comments.FindAll(c => c.Patient?.Id == id).ToList();
+            var patientVieModel = new PatientViewModel
+            {
+                Patient = patient,
+                Comments = patientComments
+            };
+
+            return View(patientVieModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -9,3 +9,4 @@ C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0
 C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.dll
 C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ref\ECC.Data.dll
 C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.pdb
+C:\Users\MZea\Documents\GitHub\EmergencyCareCentre\src\ECC.Data\obj\Debug\net5.0\ECC.Data.csproj.AssemblyReference.cache

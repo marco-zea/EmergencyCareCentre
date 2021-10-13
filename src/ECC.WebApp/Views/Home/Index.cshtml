@@ -54,15 +54,11 @@
                     <td>
                         @if (item.State == "In use")
                         {
-                            @Html.HiddenFor(modelItem => item.PatientId)
+                            <a asp-action="Patient" asp-route-id="@item.PatientId">
+                                @Html.DisplayFor(modelItem => item.PatientName)
+                            </a>
                         }
-                    </td>
-                    <td>
-                        @if (item.State == "In use")
-                        {
-                            @Html.DisplayFor(modelItem => item.PatientName)
-                        }
-                    </td>
+                        </td>
                     <td>
                         @if (item.State == "In use")
                         {
