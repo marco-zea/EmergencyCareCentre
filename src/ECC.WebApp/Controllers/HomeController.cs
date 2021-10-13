@@ -68,8 +68,8 @@ namespace WebApp.Controllers
 
             foreach (var bed in beds)
             {
-                var lastBedAddmission = comments.LastOrDefault(c => c.Bed?.Id == bed.Id && c.Body == "Admission reason");
-                var lastBedComment = comments.LastOrDefault(c => c.Bed?.Id == bed.Id && c.Body == "Adding a comment");
+                var lastBedAddmission = comments.FirstOrDefault(c => c.Bed?.Id == bed.Id);
+                var lastBedComment = comments.LastOrDefault(c => c.Bed?.Id == bed.Id);
 
                 var patientId = lastBedAddmission != null ? lastBedAddmission?.Patient?.Id : lastBedComment?.Patient?.Id;
                 var patientName = lastBedAddmission != null ? lastBedAddmission?.Patient?.FirstName + " " + lastBedAddmission?.Patient?.LastName : lastBedComment?.Patient?.FirstName + " " + lastBedComment?.Patient?.LastName;
