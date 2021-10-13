@@ -1,4 +1,5 @@
 ﻿@using ECC.WebApp.Services
+
 @model WebApp.Models.HomeViewModel
 @inject EmergencyCareService Service
 @{
@@ -41,29 +42,67 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.Beds)
+            @foreach (var item in Model.BedDetails)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Id)
+                        @Html.DisplayFor(modelItem => item.BedId)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.State)
                     </td>
                     <td>
+                        @if (item.State == "In use")
+                        {
+                            @Html.HiddenFor(modelItem => item.PatientId)
+                        }
                     </td>
                     <td>
+                        @if (item.State == "In use")
+                        {
+                            @Html.DisplayFor(modelItem => item.PatientName)
+                        }
+                    </td>
+                    <td>
+                        @if (item.State == "In use")
+                        {
+                            @Html.DisplayFor(modelItem => item.DateOfBirth)
+                        }
+                    </td>
+                    <td>
+                        @if (item.State == "In use")
+                        {
+                            @Html.DisplayFor(modelItem => item.AdmissionReason)
+                        }
+                    </td>
+                    <td>
+                        @if (item.State == "In use")
+                        {
+                            @Html.DisplayFor(modelItem => item.LastComment)
+                        }
+                    </td>
+                    <td>
+                        @if (item.State == "In use")
+                        {
+                            @Html.DisplayFor(modelItem => item.LastUpdate)
+                        }
+                    </td>
+                    <td>
+                        @if (item.State == "In use")
+                        {
+                            @Html.DisplayFor(modelItem => item.Staff)
+                        }
                     </td>
                     <td>
                         @if (item.State == "Free")
                         {
-                            <a asp-action="Admit" asp-route-id="@item.Id">Admit</a>
+                            <a asp-action="Admit" asp-route-id="@item.BedId">Admit</a>
                         }
                         else
                         {
-                            <a asp-action="Comment" asp-route-id="@item.Id">Add comment</a>
+                            <a asp-action="Comment" asp-route-id="@item.BedId">Add comment</a>
                             <br>
-                            <a asp-action="Discharge" asp-route-id="@item.Id">Discharge</a>
+                            <a asp-action="Discharge" asp-route-id="@item.BedId">Discharge</a>
                         }
                     </td>
                 </tr>

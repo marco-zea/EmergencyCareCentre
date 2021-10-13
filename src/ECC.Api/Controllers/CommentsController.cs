@@ -24,7 +24,11 @@ namespace ECC.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comment>>> Get()
         {
-            var comments = await _context.Comments.ToListAsync();
+            var comments = await _context.Comments
+                .Include(c => c.Bed)
+                .Include(c => c.Patient)
+                .AsNoTracking()
+                .ToListAsync();
             return new OkObjectResult(comments);
         }
 

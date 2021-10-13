@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -27,23 +28,64 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var viewModel = new HomeViewModel();
+            var client = _clientFactory.CreateClient();
+            var beds = new List<Bed>();
+            var comments = new List<Comment>();
 
+            //Beds
             var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/beds");
-            var client = _clientFactory.CreateClient();            
             var response = await client.SendAsync(request);
-
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var beds = JsonConvert.DeserializeObject<IList<Bed>>(content);
-                viewModel.Beds = beds.ToList();
+                beds = JsonConvert.DeserializeObject<IList<Bed>>(content).ToList();
             }
             else
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
-            
+
+            //Comments
+            request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/comments");
+            response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                comments = JsonConvert.DeserializeObject<IList<Comment>>(content).ToList();
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+            var viewModel = new HomeViewModel
+            {
+                BedDetails = new List<BedDetails>()
+            };
+
+            foreach (var bed in beds)
+            {
+                var lastBedAddmission = comments.LastOrDefault(c => c.Bed?.Id == bed.Id && c.Body == "Admission reason");
+                var lastBedComment = comments.LastOrDefault(c => c.Bed?.Id == bed.Id && c.Body == "Adding a comment");
+
+                var patientId = lastBedAddmission != null ? lastBedAddmission?.Patient?.Id : lastBedComment?.Patient?.Id;
+                var patientName = lastBedAddmission != null ? lastBedAddmission?.Patient?.FirstName + " " + lastBedAddmission?.Patient?.LastName : lastBedComment?.Patient?.FirstName + " " + lastBedComment?.Patient?.LastName;
+                var patientDOB = lastBedAddmission != null ? lastBedAddmission?.Patient?.DateOfBirth.ToString("dd-MM-yyyy") : lastBedComment?.Patient?.DateOfBirth.ToString("dd-MM-yyyy");                
+
+                viewModel.BedDetails.Add(new BedDetails
+                {
+                    BedId = bed.Id,
+                    State = bed.State,
+                    PatientId = patientId != null ? patientId : string.Empty,
+                    PatientName = patientName != null ? patientName : string.Empty,
+                    DateOfBirth = patientDOB != null ? patientDOB : string.Empty,
+                    AdmissionReason = lastBedAddmission != null ? lastBedAddmission?.Body : string.Empty,
+                    LastComment = lastBedComment != null ? lastBedComment?.Body : string.Empty,
+                    LastUpdate = lastBedComment != null ? lastBedComment?.LastUpdated.ToString("dd-MM-yyyy hh:mm:ss") : string.Empty,
+                    Staff = lastBedComment != null ? lastBedComment?.Staff : string.Empty
+                });
+            }
+
             return View(viewModel);
         }
 
