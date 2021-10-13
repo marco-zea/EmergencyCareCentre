@@ -14,5 +14,6 @@ namespace ECC.Data
         [StringLength(100)]
         public string Staff { get; set; }
         public DateTime LastUpdated { get; set; }
+        public bool IsAdmission { get; set; }
     }
 }

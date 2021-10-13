@@ -55,7 +55,8 @@ namespace ECC.WebApi
                 Patient = patients.Single(p => p.Id == "0083524"),
                 Body = "Nausea, dizziness",
                 LastUpdated = new DateTime(2020, 02, 02, 09, 05, 23),
-                Staff = "Mary P."
+                Staff = "Mary P.",
+                IsAdmission = true
             });
 
             context.Comments.Update(new Comment
@@ -73,7 +74,8 @@ namespace ECC.WebApi
                 Patient = patients.Single(p => p.Id == "0083525"),
                 Body = "Broken leg",
                 LastUpdated = new DateTime(2020, 02, 02, 04, 10, 23),
-                Staff = "Mary P."
+                Staff = "Mary P.",
+                IsAdmission = true
             });
 
             context.Comments.Update(new Comment
@@ -91,7 +93,8 @@ namespace ECC.WebApi
                 Patient = patients.Single(p => p.Id == "0083526"),
                 Body = "High fever",
                 LastUpdated = new DateTime(2020, 02, 02, 07, 15, 48),
-                Staff = "Mary P."
+                Staff = "Kelly A. ",
+                IsAdmission = true
             });
 
             context.Comments.Update(new Comment
@@ -100,7 +103,7 @@ namespace ECC.WebApi
                 Patient = patients.Single(p => p.Id == "0083526"),
                 Body = "Medication supplied",
                 LastUpdated = new DateTime(2020, 02, 02, 09, 45, 25),
-                Staff = "Mary P."
+                Staff = "Kelly A. "
             });
 
             context.SaveChanges();

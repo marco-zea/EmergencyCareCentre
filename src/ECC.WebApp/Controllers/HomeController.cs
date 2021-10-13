@@ -63,17 +63,18 @@ namespace WebApp.Controllers
                 BedDetails = new List<BedDetails>(),
                 UsedBeds = beds.Count(b => b.State == "In use"),
                 FreeBeds = beds.Count(b => b.State == "Free"),
-                TotalAdmissionsToday = comments.Count(c => c.Body == "Admission reason" && c.LastUpdated.Date == DateTime.Today),
+                TotalAdmissionsToday = comments.Count(c => c.IsAdmission && c.LastUpdated.Date == DateTime.Today),
             };
 
             foreach (var bed in beds)
             {
-                var lastBedAddmission = comments.FirstOrDefault(c => c.Bed?.Id == bed.Id);
-                var lastBedComment = comments.LastOrDefault(c => c.Bed?.Id == bed.Id);
+                var lastBedAddmission = comments.LastOrDefault(c => c.Bed?.Id == bed.Id && c.IsAdmission);
+                var lastBedComment = comments.LastOrDefault(c => c.Bed?.Id == bed.Id && !c.IsAdmission);
 
                 var patientId = lastBedAddmission != null ? lastBedAddmission?.Patient?.Id : lastBedComment?.Patient?.Id;
                 var patientName = lastBedAddmission != null ? lastBedAddmission?.Patient?.FirstName + " " + lastBedAddmission?.Patient?.LastName : lastBedComment?.Patient?.FirstName + " " + lastBedComment?.Patient?.LastName;
                 var patientDOB = lastBedAddmission != null ? lastBedAddmission?.Patient?.DateOfBirth.ToString("dd-MM-yyyy") : lastBedComment?.Patient?.DateOfBirth.ToString("dd-MM-yyyy");                
+                var staff = lastBedComment != null ? lastBedComment?.Staff : lastBedAddmission?.Staff;
 
                 viewModel.BedDetails.Add(new BedDetails
                 {
@@ -85,7 +86,7 @@ namespace WebApp.Controllers
                     AdmissionReason = lastBedAddmission != null ? lastBedAddmission?.Body : string.Empty,
                     LastComment = lastBedComment != null ? lastBedComment?.Body : string.Empty,
                     LastUpdate = lastBedComment != null ? lastBedComment?.LastUpdated.ToString("dd-MM-yyyy hh:mm:ss") : string.Empty,
-                    Staff = lastBedComment != null ? lastBedComment?.Staff : string.Empty
+                    Staff = staff != null ? staff : string.Empty
                 });
             }
 
@@ -93,44 +94,55 @@ namespace WebApp.Controllers
         }
 
         [HttpGet()]        
-        public async Task<IActionResult> Admit(int? id)
-        {                        
-            var comment = new Comment
-            {
-                Bed = new Bed { Id = (int)id, State = "In use" },
-                Patient = new Patient { Id = "0083527", FirstName = "Fred", LastName = "Smith", DateOfBirth = new DateTime(1952, 10, 21) },
-                Body = "Admission reason",
-                Staff = "Mary P.",
-                LastUpdated = DateTime.UtcNow                
-            };
-            
-            var payload =  JsonConvert.SerializeObject(comment);
-            var content = new StringContent(payload, Encoding.UTF8, "application/json");
-
+        public async Task<IActionResult> Admit(int id)
+        {
             var client = _clientFactory.CreateClient();
-            var response = await client.PostAsync("https://localhost:5001/comments", content);
+            var bed = new Bed();            
 
+            //Bed
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/beds/" + id);
+            var response = await client.SendAsync(request);
             if (response.IsSuccessStatusCode)
-            {                           
-                return RedirectToAction("Index");
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                bed = JsonConvert.DeserializeObject<Bed>(content);
             }
             else
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-            }            
+            }
+
+            var rand = new Random();
+
+            var admitViewModel = new AdmitViewModel
+            {
+                BedId = bed.Id,
+                PatientId = rand.Next(0000000, 9999999).ToString("0000000"),
+                DateOfBirth = new DateTime(2000,01,01)
+            };
+
+            return View(admitViewModel);
         }
 
-
-        [HttpGet()]
-        public async Task<IActionResult> Comment(int? id)
+        [HttpPost()]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Admit(int id, [Bind("BedId,PatientId,FirstName,LastName,DateOfBirth,Body,Staff")] AdmitViewModel admitViewModel)
         {
+            if (id != admitViewModel.BedId) return NotFound();
+
             var comment = new Comment
             {
-                Bed = new Bed { Id = (int)id, State = "In use" },
-                Patient = new Patient { Id = "0083527", FirstName = "Fred", LastName = "Smith", DateOfBirth = new DateTime(1952, 10, 21) },
-                Body = "Adding a comment",
-                Staff = "Mary P.",
-                LastUpdated = DateTime.UtcNow
+                Bed = new Bed { Id = id, State = "In use" },
+                Patient = new Patient { 
+                    Id = admitViewModel.PatientId, 
+                    FirstName = admitViewModel.FirstName, 
+                    LastName = admitViewModel.LastName, 
+                    DateOfBirth = admitViewModel.DateOfBirth
+                },
+                Body = admitViewModel.Body,
+                Staff = admitViewModel.Staff,
+                LastUpdated = DateTime.Now,
+                IsAdmission = true
             };
 
             var payload = JsonConvert.SerializeObject(comment);
@@ -147,26 +159,111 @@ namespace WebApp.Controllers
             {
                 return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
             }
+        }
 
+
+        [HttpGet()]
+        public async Task<IActionResult> Comment(string id)
+        {
+           var client = _clientFactory.CreateClient();
+            var bed = new Bed();
+            var patient = new Patient();
+
+            //Bed
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/beds/" + id.Split("-")[0]);
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                bed = JsonConvert.DeserializeObject<Bed>(responseContent);
+                bed.State = "In use";
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+            //Patient
+            request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/patients/" + id.Split("-")[1]);
+            response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                patient = JsonConvert.DeserializeObject<Patient>(responseContent);
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+            var comment = new Comment
+            {
+                Bed = bed,
+                Patient = patient,
+                Body = "Adding comment",
+                Staff = "Nurse",
+                LastUpdated = DateTime.Now
+            };
+
+            var payload = JsonConvert.SerializeObject(comment);
+            var content = new StringContent(payload, Encoding.UTF8, "application/json");
+            response = await client.PostAsync("https://localhost:5001/comments", content);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Discharge(int? id)
+        public async Task<IActionResult> Discharge(string id)
         {
+            var client = _clientFactory.CreateClient();
+            var bed = new Bed();
+            var patient = new Patient();
+
+            //Bed
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/beds/" + id.Split("-")[0]);
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                bed = JsonConvert.DeserializeObject<Bed>(responseContent);
+                bed.State = "Free";
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
+            //Patient
+            request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/patients/" + id.Split("-")[1]);
+            response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                patient = JsonConvert.DeserializeObject<Patient>(responseContent);
+            }
+            else
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
+
             var comment = new Comment
             {
-                Bed = new Bed { Id = (int)id, State = "Free" },
-                Patient = new Patient { Id = "0083527", FirstName = "Fred", LastName = "Smith", DateOfBirth = new DateTime(1952, 10, 21) },
+                Bed = bed,
+                Patient = patient,
                 Body = "Discharge",
-                Staff = "Mary P.",
-                LastUpdated = DateTime.UtcNow
+                Staff = "Doctor",
+                LastUpdated = DateTime.Now
             };
 
             var payload = JsonConvert.SerializeObject(comment);
             var content = new StringContent(payload, Encoding.UTF8, "application/json");
-
-            var client = _clientFactory.CreateClient();
-            var response = await client.PostAsync("https://localhost:5001/comments", content);
+            response = await client.PostAsync("https://localhost:5001/comments", content);
 
             if (response.IsSuccessStatusCode)
             {
@@ -185,7 +282,7 @@ namespace WebApp.Controllers
             var patient = new Patient();
             var comments = new List<Comment>();
 
-            //Beds
+            //Patient
             var request = new HttpRequestMessage(HttpMethod.Get, "https://localhost:5001/patients/" + id);
             var response = await client.SendAsync(request);
             if (response.IsSuccessStatusCode)

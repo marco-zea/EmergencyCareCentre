@@ -96,9 +96,9 @@
                         }
                         else
                         {
-                            <a asp-action="Comment" asp-route-id="@item.BedId">Add comment</a>
+                            <a asp-action="Comment" asp-route-id="@item.BedId-@item.PatientId">Add comment</a>
                             <br>
-                            <a asp-action="Discharge" asp-route-id="@item.BedId">Discharge</a>
+                            <a asp-action="Discharge" asp-route-id="@item.BedId-@item.PatientId">Discharge</a>
                         }
                     </td>
                 </tr>

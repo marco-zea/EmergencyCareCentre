@@ -48,6 +48,27 @@ namespace ECC.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Comment>> Post([FromBody]Comment comment)
         {
+            var bed = await _context.Beds.FindAsync(comment.Bed.Id);
+            if (bed == null)
+            {
+                _context.Beds.Add(comment.Bed);
+                await _context.SaveChangesAsync();
+            } else
+            {
+                bed.State = comment.Bed.State;
+                comment.Bed = bed;
+            }
+
+            var patient = await _context.Patients.FindAsync(comment.Patient.Id);
+            if (patient == null)
+            {
+                _context.Patients.Add(comment.Patient);
+                await _context.SaveChangesAsync();
+            } else
+            {
+                comment.Patient = patient;
+            }                        
+
             _logger.LogInformation(JsonConvert.SerializeObject(comment));
             _context.Comments.Update(comment);
             await _context.SaveChangesAsync();
